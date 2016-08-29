@@ -6,5 +6,5 @@ import java.util.Collection;
  * @author Sergiy_Solovyov
  */
 public interface BeanPostProcessor {
-   void setBeans(Collection collection);
+   void process(Collection beans);
 }

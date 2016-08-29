@@ -24,26 +24,19 @@ public class ApplicationContext  {
         Set<Class<? extends BeanPostProcessor>> subTypesOf =
                 reflections.getSubTypesOf(BeanPostProcessor.class);
         for (Class<? extends BeanPostProcessor> clazz : subTypesOf) {
-            initializeClass(clazz);
+            runBeanPostProcessor(clazz);
         }
     }
-    private void initializeClass(Class clazz){
+    private void runBeanPostProcessor(Class clazz){
 
         try {
-            Constructor constructor = clazz.getConstructor(java.util.Collection.class);
-            Collection collection =  beanFactory.getBeans();
-            constructor.newInstance(collection);
-        } catch (InstantiationException e) {
-            e.printStackTrace();
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
-        } catch (InvocationTargetException e) {
-            System.out.println(e.getTargetException());
-        }
-        catch (NoSuchMethodException e) {
-            e.printStackTrace();
-        }
+            BeanPostProcessor bpp = (BeanPostProcessor) clazz.newInstance();
 
+            bpp.process(beanFactory.getBeans());
+
+        } catch (InstantiationException|IllegalAccessException e) {
+            e.printStackTrace();
+        }
 
     }
 }

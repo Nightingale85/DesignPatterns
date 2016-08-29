@@ -14,23 +14,16 @@ public class InjectRandomIntBeanPostProcessor implements BeanPostProcessor {
     private Collection beans;
     private Random random = new Random();
 
-    public InjectRandomIntBeanPostProcessor(Collection beans) {
-        this.beans = beans;
-        init();
+    @Override
+    public void process(Collection beans) {
+        for (Object o : beans) {
+            Field[] fields = o.getClass().getDeclaredFields();
+            for (Field field : fields) {
+                if (field.isAnnotationPresent(InjectRandomInt.class))
+                    injectRandomInt(o, field);
+            }
+        }
     }
-
-
-
-          private void  init(){
-              for (Object o : beans) {
-                  Field[] fields = o.getClass().getDeclaredFields();
-                  for (Field field : fields) {
-                      if (field.isAnnotationPresent(InjectRandomInt.class))
-                          injectRandomInt(o, field);
-                  }
-              }
-          }
-
 
     private void injectRandomInt(Object o, Field field){
         try {
@@ -39,10 +32,5 @@ public class InjectRandomIntBeanPostProcessor implements BeanPostProcessor {
         } catch (IllegalAccessException e) {
             e.printStackTrace();
         }
-    }
-
-    @Override
-    public void setBeans(Collection collection) {
-        beans = collection;
     }
 }

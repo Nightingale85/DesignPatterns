@@ -9,7 +9,7 @@ import com.epam.dp.factory.annotations.InjectRandomInt;
 @Component("SomeClass")
 public class SomeClass {
     @InjectRandomInt
-    private int superTest;
+    private int randomInt;
     private String test = "test";
 
     public String getTest() {
@@ -19,7 +19,7 @@ public class SomeClass {
     @Override
     public String toString() {
         return "SomeClass{" +
-                "superTest=" + superTest +
+                "randomInt=" + randomInt +
                 ", test='" + test + '\'' +
                 '}';
     }

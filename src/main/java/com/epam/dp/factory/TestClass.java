@@ -9,20 +9,20 @@ import com.epam.dp.factory.annotations.InjectRandomInt;
 @Component("Lammi")
 public class TestClass {
     @InjectRandomInt
-    public int test;
+    public int randomInt;
 
     public int getTest() {
-        return test;
+        return randomInt;
     }
 
     public void setTest(int test) {
-        this.test = test;
+        this.randomInt = test;
     }
 
     @Override
     public String toString() {
         return "TestClass{" +
-                "test=" + test +
+                "randomInt=" + randomInt +
                 '}';
     }
 }

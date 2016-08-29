@@ -24,8 +24,9 @@ public class BeanFactory {
         }
     }
 
-    public Object getBean(final String id) {
-        return beans.get(id);
+    public <T>T getBean(String id) {
+
+        return (T)beans.get(id);
     }
 
     private void tryAddToListeners(Class<?> clazz) {
